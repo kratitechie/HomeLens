@@ -1,9 +1,11 @@
 from pathlib import Path
+import os
+from urllib.parse import quote_plus
 
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
-import os
-from urllib.parse import quote_plus
+from sqlalchemy.orm import DeclarativeBase, sessionmaker
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -18,4 +20,12 @@ DATABASE_URL = (
     f"{os.getenv('DB_NAME')}"
 )
 
-engine = create_engine(DATABASE_URL, echo=True)
+
+engine = create_engine(DATABASE_URL, echo=False)
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+SessionLocal = sessionmaker(bind=engine)

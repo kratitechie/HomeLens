@@ -1,131 +1,74 @@
-# HomeLens 🏡
+# 🏡 HomeLens
 
-An AI-powered Real Estate Search Assistant built to learn production-grade AI engineering concepts from scratch.
+HomeLens is an AI-powered Real Estate Search Assistant built from scratch using modern backend engineering practices.
 
 ---
 
-## Project Goal
+## Current Features
 
-HomeLens is a portfolio project focused on learning and implementing:
-
-- Python
-- FastAPI
-- PostgreSQL
-- SQLAlchemy
-- Vector Databases
-- Retrieval-Augmented Generation (RAG)
-- LLM Integration
-- Production-ready Backend Architecture
-
-The long-term goal is to allow users to search properties using natural language queries powered by AI.
-
-Example:
-
-> "Show me a furnished 3 BHK under ₹80 lakhs near Vijay Nagar."
+- CSV Property Ingestion
+- Data Cleaning with Pandas
+- Validation using Pydantic
+- PostgreSQL Database
+- SQLAlchemy ORM
+- Clean Project Structure
 
 ---
 
 ## Tech Stack
 
-### Backend
-
-- Python
-- FastAPI *(Upcoming)*
-- SQLAlchemy
+- Python 3.11+
 - PostgreSQL
-
-### AI
-
-- Sentence Transformers *(Upcoming)*
-- ChromaDB *(Upcoming)*
-- Ollama / Llama 3 *(Upcoming)*
-
-### Data
-
-- Pandas
+- SQLAlchemy 2.0
 - Pydantic
+- Pandas
+- python-dotenv
 
 ---
 
-## Project Structure
+## Current Architecture
 
 ```
-HomeLens/
-│
-├── app/
-│   ├── api/
-│   ├── core/
-│   ├── database/
-│   ├── embeddings/
-│   ├── ingestion/
-│   ├── models/
-│   ├── rag/
-│   ├── services/
-│   └── utils/
-│
-├── data/
-├── tests/
-├── .env
-├── .gitignore
-└── README.md
+CSV
+ │
+ ▼
+Pandas
+ │
+ ▼
+Pydantic Validation
+ │
+ ▼
+SQLAlchemy ORM
+ │
+ ▼
+PostgreSQL
 ```
 
 ---
 
-## Progress
+## Upcoming
 
-### Sprint 1 ✅
-
-- Project setup
-- Folder structure
-- Git repository initialized
-
-### Sprint 2 ✅
-
-- CSV ingestion
-- Data cleaning
-- Pandas DataFrame loading
-- Property validation using Pydantic
-
-### Sprint 3 (In Progress)
-
-Completed:
-
-- PostgreSQL 17 installation
-- Database creation (`homelens`)
-- Virtual environment setup
-- SQLAlchemy installation
-- psycopg2 installation
-- python-dotenv configuration
-- Environment variable management
-- SQLAlchemy Engine configuration
-- Python ↔ PostgreSQL connection established
-
-Upcoming:
-
-- SQLAlchemy ORM models
-- Table creation
-- Insert property records
-- Query data
-- CSV → PostgreSQL synchronization
+- Repository Pattern
+- Service Layer
+- Embeddings
+- ChromaDB
+- Semantic Search
+- RAG Pipeline
+- FastAPI
+- Docker Deployment
 
 ---
 
-## Learning Objectives
+## Project Status
 
-This project is being built from scratch to understand:
+✅ Sprint 1 - Project Setup
 
-- Backend Architecture
-- Database Design
-- ORM Concepts
-- AI Search Systems
-- Retrieval-Augmented Generation
-- Production Deployment
+✅ Sprint 2 - CSV Processing
 
-The focus is on understanding engineering concepts instead of simply using libraries.
+✅ Sprint 3 - PostgreSQL + SQLAlchemy ORM
 
----
+⬜ Sprint 4 - Repository Layer
 
-## Status
+⬜ Sprint 5 - Embeddings
 
-🚧 Sprint 3 in Progress
+⬜ Sprint 6 - RAG

@@ -1,43 +1,47 @@
-from typing import Optional
+from sqlalchemy.orm import Mapped, mapped_column
 
-from pydantic import BaseModel
+from app.database.database import Base
 
 
-class Property(BaseModel):
-    property_id: str
+class Property(Base):
+    __tablename__ = "properties"
 
-    property_type_raw: str
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
 
-    location: str
+    property_id: Mapped[str] = mapped_column(unique=True, nullable=False)
 
-    details: Optional[str] = None
+    property_type_raw: Mapped[str]
 
-    property_name: Optional[str] = None
+    location: Mapped[str]
 
-    bhk_raw: Optional[str] = None
+    details: Mapped[str | None]
 
-    bhk: Optional[int] = None
+    property_name: Mapped[str | None]
 
-    size_raw: Optional[str] = None
+    bhk_raw: Mapped[str | None]
 
-    size_sqft: Optional[float] = None
+    bhk: Mapped[int | None]
 
-    price_raw: Optional[str] = None
+    size_raw: Mapped[str | None]
 
-    price_per_sqft_inr: Optional[float] = None
+    size_sqft: Mapped[float | None]
 
-    price_total_inr: Optional[float] = None
+    price_raw: Mapped[str | None]
 
-    price_total_source: Optional[str] = None
+    price_per_sqft_inr: Mapped[float | None]
 
-    currency: Optional[str] = None
+    price_total_inr: Mapped[float | None]
 
-    furnishing_raw: Optional[str] = None
+    price_total_source: Mapped[str | None]
 
-    furnishing: Optional[str] = None
+    currency: Mapped[str | None]
 
-    miscellaneous_details: Optional[str] = None
+    furnishing_raw: Mapped[str | None]
 
-    on_website: Optional[bool] = None
+    furnishing: Mapped[str | None]
 
-    search_text: str
+    miscellaneous_details: Mapped[str | None]
+
+    on_website: Mapped[bool | None]
+
+    search_text: Mapped[str]

@@ -1,7 +1,7 @@
 from pathlib import Path
-from app.models.property import Property
+from app.schemas.property import Property
 from app.ingestion.csv_loader import CSVLoader
-
+from app.ingestion.db_loader import save_properties
 
 def main():
     csv_path = Path("data/homelens_properties_cleaned_v2.csv")
@@ -30,10 +30,9 @@ def main():
 
         print(properties[0].model_dump())
 
-    print()
+    save_properties(properties)
 
-    print(f"Validated {len(properties)} properties.")
-
+    print(f"Saved {len(properties)} properties to PostgreSQL.")
 
 if __name__ == "__main__":
     main()
