@@ -26,25 +26,14 @@ HomeLens is an AI-powered Real Estate Search Assistant built from scratch using 
 
 ---
 
-## Current Architecture
+### Current Architecture
 
-```
 CSV
- │
- ▼
-Pandas
- │
- ▼
-Pydantic Validation
- │
- ▼
-SQLAlchemy ORM
- │
- ▼
-PostgreSQL
-```
-
----
+→ CSV Loader
+→ Pydantic Schema
+→ Property Mapper
+→ Repository
+→ PostgreSQL
 
 ## Upcoming
 
@@ -67,8 +56,19 @@ PostgreSQL
 
 ✅ Sprint 3 - PostgreSQL + SQLAlchemy ORM
 
-⬜ Sprint 4 - Repository Layer
+✅ Sprint 4 - Repository Layer
 
 ⬜ Sprint 5 - Embeddings
 
 ⬜ Sprint 6 - RAG
+
+## Sprint 4 - Repository Pattern
+
+### Completed
+- Implemented Repository Pattern for database operations.
+- Added PropertyRepository to encapsulate CRUD operations.
+- Introduced Mapper Pattern to convert Pydantic schemas into SQLAlchemy models.
+- Refactored ingestion pipeline to follow a layered architecture.
+- Removed direct database logic from the ingestion layer.
+- Successfully ingested 14 real estate listings into PostgreSQL.
+

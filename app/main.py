@@ -1,19 +1,23 @@
 from pathlib import Path
+
 from app.schemas.property import Property
 from app.ingestion.csv_loader import CSVLoader
-from app.ingestion.db_loader import save_properties
+from app.ingestion.property_mapper import map_to_model
+from app.repositories.property_repository import PropertyRepository
+from app.database.session import get_session
+
 
 def main():
+
     csv_path = Path("data/homelens_properties_cleaned_v2.csv")
 
     loader = CSVLoader(csv_path)
+
     dataframe = loader.load()
+
     dataframe = dataframe.where(dataframe.notna(), None)
-    
-    properties = []
-    #print(dataframe.columns.tolist())
-    #print(dataframe.head())
-    #print()
+
+    sqlalchemy_properties = []
 
     for _, row in dataframe.iterrows():
 
@@ -24,16 +28,24 @@ def main():
             for key, value in row_dict.items()
         }
 
-        property_obj = Property(**cleaned_row)
+        # Step 1: Validate using Pydantic
+        schema_property = Property(**cleaned_row)
 
-        properties.append(property_obj)
+        # Step 2: Convert to SQLAlchemy model
+        db_property = map_to_model(schema_property)
 
-        print(properties[0].model_dump())
+        sqlalchemy_properties.append(db_property)
 
-    save_properties(properties)
+    session = get_session()
 
-    print(f"Saved {len(properties)} properties to PostgreSQL.")
+    repository = PropertyRepository(session)
+
+    repository.create_many(sqlalchemy_properties)
+
+    session.close()
+
+    print(f"Saved {len(sqlalchemy_properties)} properties to PostgreSQL.")
+
 
 if __name__ == "__main__":
     main()
-    
