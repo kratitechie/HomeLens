@@ -85,3 +85,15 @@ class PropertyRepository:
         self.db.commit()
 
         return True
+    
+    # -----------------------------
+    # GET by ID
+    # -----------------------------
+
+    def get_by_property_ids(self, property_ids: list[str]):
+
+        return (
+            self.db.query(Property)
+            .filter(Property.property_id.in_(property_ids))
+            .all()
+        )

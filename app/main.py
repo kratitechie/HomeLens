@@ -1,5 +1,4 @@
 from pathlib import Path
-
 from app.schemas.property import Property
 from app.ingestion.csv_loader import CSVLoader
 from app.ingestion.property_mapper import map_to_model
