@@ -4,7 +4,9 @@ from app.schemas.search import (
     SearchRequest,
     SearchResponse,
     PropertySearchResult,
+    AskResponse,
 )
+from app.services.ask_service import AskService
 from app.services.search_service import SearchService
 
 
@@ -16,6 +18,7 @@ app = FastAPI(
 
 
 search_service = SearchService()
+ask_service = AskService()
 
 
 @app.get("/health")
@@ -30,9 +33,7 @@ def health_check():
     "/search",
     response_model=SearchResponse
 )
-def search_properties(
-    request: SearchRequest
-):
+def search_properties(request: SearchRequest):
 
     properties = search_service.search(
         query=request.query,
@@ -52,4 +53,21 @@ def search_properties(
             )
             for property in properties
         ]
+    )
+
+
+@app.post(
+    "/ask",
+    response_model=AskResponse
+)
+def ask_home_lens(request: SearchRequest):
+
+    answer = ask_service.answer(
+        query=request.query,
+        n_results=request.n_results
+    )
+
+    return AskResponse(
+        query=request.query,
+        answer=answer
     )

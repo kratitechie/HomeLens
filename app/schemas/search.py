@@ -17,3 +17,7 @@ class PropertySearchResult(BaseModel):
 class SearchResponse(BaseModel):
     query: str
     results: list[PropertySearchResult]
+    
+class AskResponse(BaseModel):
+    query: str
+    answer: str
