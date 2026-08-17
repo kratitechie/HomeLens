@@ -50,4 +50,8 @@ Do not claim that a property has a feature unless that feature appears in the pr
 Provide a concise and useful answer.
 """
 
-        return self.llm.generate(prompt)
+        answer = self.llm.generate(prompt)
+        return {
+            "answer": answer,
+            "properties": properties,
+        }

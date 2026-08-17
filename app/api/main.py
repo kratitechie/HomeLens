@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.schemas.search import (
     SearchRequest,
@@ -15,7 +16,13 @@ app = FastAPI(
     description="AI-powered semantic real estate search API",
     version="1.0.0",
 )
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 search_service = SearchService()
 ask_service = AskService()
@@ -62,12 +69,23 @@ def search_properties(request: SearchRequest):
 )
 def ask_home_lens(request: SearchRequest):
 
-    answer = ask_service.answer(
+    result = ask_service.answer(
         query=request.query,
         n_results=request.n_results
     )
 
     return AskResponse(
         query=request.query,
-        answer=answer
+        answer=result["answer"],
+        properties=[
+            PropertySearchResult(
+                property_id=property.property_id,
+                property_name=property.property_name,
+                location=property.location,
+                bhk=property.bhk,
+                size_sqft=property.size_sqft,
+                price_total_inr=property.price_total_inr,
+            )
+            for property in result["properties"]
+        ]
     )
