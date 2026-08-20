@@ -2,6 +2,7 @@ import os
 
 from dotenv import load_dotenv
 from google import genai
+from pydantic import BaseModel
 
 
 load_dotenv()
@@ -28,3 +29,23 @@ class LLMService:
         )
 
         return interaction.output_text
+
+    def generate_structured(
+        self,
+        prompt: str,
+        response_model: type[BaseModel]
+    ):
+
+        interaction = self.client.interactions.create(
+            model=self.model,
+            input=prompt,
+            response_format={
+                "type": "text",
+                "mime_type": "application/json",
+                "schema": response_model.model_json_schema(),
+            },
+        )
+
+        return response_model.model_validate_json(
+            interaction.output_text
+        )

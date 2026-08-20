@@ -7,17 +7,44 @@ function SearchBox() {
   const [query, setQuery] = useState("")
   const [answer, setAnswer] = useState("")
   const [properties, setProperties] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
   async function handleSearch() {
-    const data = await askHomeLens(query)
 
-    setAnswer(data.answer)
-    console.log("API DATA:", data)
-    setProperties(data.properties)
+    if (!query.trim()) {
+      return
+    }
+
+    setLoading(true)
+    setError("")
+
+    try {
+      const data = await askHomeLens(query)
+
+      console.log("API DATA:", data)
+
+      setAnswer(data.answer)
+      setProperties(data.properties)
+
+    } catch (error) {
+
+      console.error("HomeLens error:", error)
+
+      setError(
+        "Something went wrong while searching. Please try again."
+      )
+
+    } finally {
+
+      setLoading(false)
+
+    }
   }
 
   return (
     <div>
+
       <input
         type="text"
         value={query}
@@ -25,15 +52,31 @@ function SearchBox() {
         onChange={(event) => setQuery(event.target.value)}
       />
 
-      <button onClick={handleSearch}>
-        Search
+      <button
+        onClick={handleSearch}
+        disabled={loading}
+      >
+        {loading ? "Searching..." : "Search"}
       </button>
 
       <p>You are searching for: {query}</p>
 
-      <p>{answer}</p>
+      {loading && (
+        <p>HomeLens is finding the best properties...</p>
+      )}
 
-      <PropertyResults properties={properties} />
+      {error && (
+        <p>{error}</p>
+      )}
+
+      {answer && !loading && (
+        <p>{answer}</p>
+      )}
+
+      {!loading && properties.length > 0 && (
+        <PropertyResults properties={properties} />
+      )}
+
     </div>
   )
 }

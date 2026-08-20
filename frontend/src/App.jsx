@@ -1,13 +1,28 @@
-import SearchBox from "./components/SearchBox"
+import Header from "./components/Header"
+import Hero from "./components/Hero"
+import "./App.css"
 
 function App() {
   return (
-    <div>
-      <h1>HomeLens</h1>
+    <div className="app">
 
-      <p>AI-powered real estate search</p>
+      <Header />
 
-      <SearchBox />
+      <main>
+        <Hero />
+
+        <section className="trust-section">
+          <p>Powered by modern AI retrieval technology</p>
+
+          <div className="tech-stack">
+            <span>Semantic Search</span>
+            <span>RAG</span>
+            <span>AI Reranking</span>
+            <span>Natural Language</span>
+          </div>
+        </section>
+      </main>
+
     </div>
   )
 }
