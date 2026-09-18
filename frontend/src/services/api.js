@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://127.0.0.1:8000"
+const API_BASE_URL = "https://homelens-backend-884492552799.asia-south1.run.app"
 
 export async function askHomeLens(query, nResults = 5) {
   const response = await fetch(`${API_BASE_URL}/ask`, {
